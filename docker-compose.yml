@@ -1,0 +1,35 @@
+version: '3'
+services:
+
+  main-db:
+    build: ./main-app/db
+
+  main-app:
+    build: ./main-app/app
+    volumes:
+      - ./main-app/app:/app
+    depends_on:
+      - main-db
+
+  course-db:
+    build: ./course/db
+    
+  course-app:
+    build: ./course/app
+    volumes:
+      - ./course/app:/app
+    depends_on:
+      - course-db
+
+  chunk-db:
+    build: ./chunk/db
+    
+  chunk-app:
+    build: ./chunk/app
+    volumes:
+      - ./chunk/app:/app
+    depends_on:
+      - chunk-db
+   
+
+

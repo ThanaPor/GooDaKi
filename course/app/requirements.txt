@@ -1,0 +1,8 @@
+flask
+psycopg2
+flask-login
+passlib
+wtforms
+bcrypt
+requests
+flask-mail

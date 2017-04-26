@@ -1,0 +1,44 @@
+version: '3'
+services:
+  main-db:
+    ports:
+      - "15432:5432"
+    volumes: 
+      - main-data:/var/lib/postgresql/data
+  main-app:
+    ports:
+      - "5000:5000"
+    environment:
+      - ENV_SETTING=development
+    restart: always
+
+  course-db:
+    ports:
+      - "15433:5432"
+    volumes:
+      - course-data:/var/lib/postgresql/data
+  course-app:
+    ports:
+      - "5001:5000"
+    environment:
+      - ENV_SETTING=development 
+    restart: always
+  
+  chunk-db:
+    ports:
+      - "28001:27017"      
+    volumes:
+      - chunk-data:/data
+  chunk-app:
+    ports:
+      - 5002:5000
+    environment:
+      - ENV_SETTING=development
+    restart: always
+
+volumes:
+  main-data:
+
+  course-data:
+
+  chunk-data:
