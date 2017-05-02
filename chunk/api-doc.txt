@@ -24,13 +24,18 @@ example of types
     some-user-define-type: Type
 
 ** define Types**
-:Chunk
+:Chunk ## may subject to changes
 {
-    "aptid": string,
-    "docid": string,
-    "hn": string,
-    "date": 'yyyy-mm-dd' (string)
-    "shift": string ('morning', 'afternoon')
+    "chunkid": string,
+    "chunkname": string,
+    "authorid": string,
+    "type": string,
+    "video-link": string (url), # if it is a video
+    "description": string,
+    "text": string,   # the if the chunk is text-based or have text to show
+    "created": DateTime,
+    "updated": DateTime,
+    "tags": [tags(string)]
 }
 
 get /api/chunk/{id}
