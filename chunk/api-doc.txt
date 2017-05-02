@@ -1,0 +1,70 @@
+***     get     /api/chunk/{id}                 *ChunkControl::getChunkInfo(id)
+***     get     /api/chunk/author/{id}          *ChunkControl::getChunkByAuthor(authorId)
+***     post    /api/chunk                      *ChunkControl::createChunk(info)
+***     post    /api/chunk/search               *ChunkControl::searchChunk(query)
+**      delete  /api/chunk/{id}                 *ChunkControl::deleteChunk(id)
+
+grammar of definitions
+# all post body and return value are JSON format
+
+VERB /api/service-name/path/{parameter-if-any}
+body: -if needed
+{
+    "key_1": val,
+    "key_2": {
+        "inner_key_1": [Types],
+        "inner_key_2": val
+    }    
+}
+return value:
+    variableName: Types
+
+example of types    
+    somearray:[Types] - array of types e.g. [Int], [UserDefineJSONTypes]
+    some-user-define-type: Type
+
+** define Types**
+:Chunk
+{
+    "aptid": string,
+    "docid": string,
+    "hn": string,
+    "date": 'yyyy-mm-dd' (string)
+    "shift": string ('morning', 'afternoon')
+}
+
+get /api/chunk/{id}
+    Chunk
+
+get /api/chunk/author/{id}
+    [Chunks]
+
+post /api/chunk
+    post-body:
+    chunk-info: Chunk #without id
+    
+    return:
+    if success:
+        return 200
+    otherwise:
+        httpCode & { "error": reasonString }
+
+post /api/chunk/search
+    # may subject to changes
+    post-body:
+    {
+        "tag": [tags],
+        "author": [authorNames],
+        "query": queryString,
+        "start-date": date,
+        "end-date": date
+    }
+
+    return:
+    array-of-chunks: [Chunk]
+
+delete /api/chunk/{id}
+    if success:
+        return 200
+    otherwise:
+        httpCode & { "error": resonString }
