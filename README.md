@@ -12,6 +12,7 @@ In case of database structure change (i.e. change in `/db/` folder), please exec
 # Project Structures
 - The project contains 3 microservices: main, course, and chunk.
 - The folders of this projects are named after the services
+- In each microservice folder `api-doc.txt` defines every api exposed by each service.
 - In each microservice folder (`/main/`, `/course/`, `/chunk/`): 
 	- `/.../app/` contains application related files
 		- `/.../app/main.py` is the main application file
