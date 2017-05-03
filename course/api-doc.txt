@@ -1,0 +1,99 @@
+***     get     /api/course/{id}        *CourseControl::getCourseInfo(id)
+***     get     /api/course/author/{id}     *CourseControl::getCourseByAuthor(authorid)
+***     post    /api/course             *CourseControl::createCourse(info)
+***     post    /api/course/search      *CourseControl::searchCourse(query)
+***     put     /api/course         *CourseControl::editCourse(info)
+**  delete  /api/course/{id}        *CourseControl::deleteCourse(id)
+
+***     get     /api/course/subject/{id}    *CourseControl::getSubjectInfo(id)
+***     get     /api/course/subject/author/{id} *CourseControl::getSubjectByAuthor(authorid)
+***     post    /api/course/subject         *CourseControl::createSubject(info)
+***     post    /api/course/subject/search  *CourseControl::searchSubject(query)
+***     put     /api/course/subject     *CourseControl::editSubject(info)
+**  delete  /api/course/subject/{id}    *CourseControl::deleteSubject(id)
+
+***     get     /api/course/career/{id}     *CourseControl::getCareerInfo(id)
+***     post    /api/course/career      *CourseControl::createCareer(info)
+***     post    /api/course/career/search   *CourseControl::searchCareer(query)
+***     put     /api/course/career      *CourseControl::editCareer(info)
+**  delete  /api/course/career/{id}     *CourseControl::deleteCareer(id)
+
+grammar of definitions
+# all post body and return value are JSON format
+
+** define Types**
+:Subject
+{
+    "subjectid": string,
+    "subjectname": string,
+    "authorid": string,
+    "type": string,
+    "description": string,
+    "created": DateTime,
+    "updated": DateTime,
+    "tags": [tags(string)],
+    "chunks" : [chunkid]
+}
+
+:Course
+{
+    "courseid": string,
+    "coursename": string,
+    "authorid": string,
+    "type": string,
+    "description": string,
+    "created": DateTime,
+    "updated": DateTime,
+    "tags": [tags(string)],
+    "subjects" : [subjectid]
+}
+
+:Career
+{
+    "careerid": string,
+    "careername": string,
+    "authorid": string,
+    "type": string,
+    "description": string,
+    "created": DateTime,
+    "updated": DateTime,
+    "tags": [tags(string)],
+    "courses" : [courseid]
+}
+
+get /api/course/{id}
+    return:
+    Course
+
+get /api/course/author/{id} 
+    return:
+    [Course]
+
+post /api/course
+    post-body:
+    course-info: Course #without id
+
+    return:
+    if success:
+    return 200
+    otherwise:
+    httpCode & { "error": reasonString }
+
+post /api/course/search 
+    post-body:
+    {
+        "tag": [tags],
+        "author": [authorNames],
+        "query": queryString,
+        "start-date": date,
+        "end-date": date
+    }
+
+    return:
+    array-of-courses: [Course]
+
+delete /api/course/{id}
+    if success:
+        return 200
+    otherwise:
+        httpCode & { "error": resonString }

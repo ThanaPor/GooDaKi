@@ -1,0 +1,57 @@
+*** get /api/main/{userid} *UserControl:getUserInfo(userid)
+*** get /api/main/searchuser *UserControl:searchUser(query)
+*** post /api/main/register *UserControler:register(userinfo)
+*** post /api/main/login *UserControl:login(username,password)
+*** post /api/logout *UserControl:logout(id)
+
+*** get /api/main/portfolio/{id} *UserControl:getPortfolio(id,yourid)
+*** put /api/main/editportfolio *UserControl:editPortfolio(Portfolioinfo)
+
+*** get /api/main/chunk/{id} *UserControl:userGetChunk(id)
+*** post /api/main/chunk *UserControl:userCreateChunk(info)
+*** post /api/main/search *UserControl:userSearchChunk(query)
+*** delete /api/main/chunk/{id} *UserControl:userDeleteChunk(id)
+
+*** get /api/main/subject/{id} *UserControl:userGetSubject(id)
+*** post /api/main/subject *UserControl:userCreateSubject(info)
+*** post /api/main/search *UserControl:userSearchSubject(query)
+*** delete /api/main/subject/{id} *UserControl:userDeleteSubject(id)
+*** get /api/main/subjectsyllabus/{id} *UserControl:userGetSubjectSyllabus(id)
+
+*** get /api/main/course/{id} *UserControl:userGetCourse(id)
+*** post /api/main/course *UserControl:userCreateCourse(info)
+*** post /api/main/course *UserControl:userSearchCourse(query)
+*** delete /api/main/course/{id} *UserControl:userDeleteCourse(id)
+*** get /api/main/coursesyllabus/{id} *UserControl:userGetCourseSyllabus(id)
+
+*** post /api/main/career *UserControl:userSearchCareer(query)
+*** get /api/main/careersyllabus/{id} *UserControl:userGetCareerSyllabus(id)
+
+*** get /api/main/search *UserControl:userSearch(query)
+
+:User 
+{
+    "userid": string,
+    "username": string,
+    "password": string,
+    "portfolio": string,
+    "description": string
+
+}
+
+:Portfolio 
+{
+    "Portfolioid": string,
+    "firstname": string,
+    "lastname": string,
+    "birthday": string,
+    "education": string,
+    "description": string,
+    "createdchunk": [chunkid],
+    "createdsubject": [subjectid],
+    "createdcourse": [courseid],
+    "takencourse": [courseid],
+    "takingcourse": takingcourse
+}
+
+takingcourse=[{'course':courseid, [{'subject' : subjectid, [{'chunk' : [chunkid] }] }] }]

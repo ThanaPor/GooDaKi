@@ -39,9 +39,11 @@ example of types
 }
 
 get /api/chunk/{id}
+    return:
     Chunk
 
 get /api/chunk/author/{id}
+    return:
     [Chunks]
 
 post /api/chunk
