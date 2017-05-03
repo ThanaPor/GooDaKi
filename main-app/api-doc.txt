@@ -9,22 +9,26 @@
 
 *** 	get 	/api/main/chunk/{id} 		*UserControl:userGetChunk(id)
 *** 	post 	/api/main/chunk 		*UserControl:userCreateChunk(info)
+*** 	put 	/api/main/chunk 		*UserControl:userEditChunk(info)
 *** 	post 	/api/main/chunk/search 		*UserControl:userSearchChunk(query)
 *** 	delete 	/api/main/chunk/{id} 		*UserControl:userDeleteChunk(id)
 
 *** 	get 	/api/main/subject/{id} 		*UserControl:userGetSubject(id)
 *** 	post 	/api/main/subject 		*UserControl:userCreateSubject(info)
-*** 	post 	/api/main/subject/search 		*UserControl:userSearchSubject(query)
+*** 	put 	/api/main/subject 		*UserControl:userEditSubject(info)
+*** 	post 	/api/main/subject/search 	*UserControl:userSearchSubject(query)
 *** 	delete 	/api/main/subject/{id} 		*UserControl:userDeleteSubject(id)
 *** 	get 	/api/main/subjectsyllabus/{id} 	*UserControl:userGetSubjectSyllabus(id)
 
 *** 	get 	/api/main/course/{id} 		*UserControl:userGetCourse(id)
 *** 	post 	/api/main/course 		*UserControl:userCreateCourse(info)
+*** 	put 	/api/main/course 		*UserControl:userEditCourse(info)
 *** 	post 	/api/main/course/search 	*UserControl:userSearchCourse(query)
 *** 	delete 	/api/main/course/{id} 		*UserControl:userDeleteCourse(id)
 *** 	get 	/api/main/coursesyllabus/{id} 	*UserControl:userGetCourseSyllabus(id)
 
 *** 	post 	/api/main/career 		*UserControl:userCreateCareer(info)
+*** 	put 	/api/main/career 		*UserControl:userEditCareer(info)
 *** 	post 	/api/main/career/search 	*UserControl:userSearchCareer(query)
 *** 	get 	/api/main/careersyllabus/{id} 	*UserControl:userGetCareerSyllabus(id)
 
@@ -114,6 +118,16 @@ get /api/main/subject/{id}
 post /api/main/subject 
     post-body:
     course-info: Subject #without id
+
+    return:
+    if success:
+    return 200
+    otherwise:
+    httpCode & { "error": reasonString }
+
+put /api/main/subject 
+    post-body:
+    course-info: Subject 
 
     return:
     if success:

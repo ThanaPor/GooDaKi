@@ -25,6 +25,12 @@ example of types
     some-user-define-type: Type
 
 ** define Types**
+:test{
+    "testid" : string,
+    "question" : string,
+    "answer" : string
+}
+
 :Chunk ## may subject to changes
 {
     "chunkid": string,
@@ -36,8 +42,11 @@ example of types
     "text": string,   # the if the chunk is text-based or have text to show
     "created": DateTime,
     "updated": DateTime,
+    "pretest" : test,
+    "posttest" : test,
     "tags": [tags(string)]
 }
+
 
 get /api/chunk/{id}
     return:
