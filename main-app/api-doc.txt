@@ -1,33 +1,34 @@
-*** get /api/main/{userid} *UserControl:getUserInfo(userid)
-*** get /api/main/searchuser *UserControl:searchUser(query)
-*** post /api/main/register *UserControler:register(userinfo)
-*** post /api/main/login *UserControl:login(username,password)
-*** post /api/logout *UserControl:logout(id)
+***    	get 	/api/main/{userid} 		*UserControl:getUserInfo(userid)
+*** 	post 	/api/main/searchuser 		*UserControl:searchUser(query)
+*** 	post 	/api/main/register 		*UserControler:register(userinfo)
+*** 	post 	/api/main/login 		*UserControl:login(username,password)
+*** 	post 	/api/logout 			*UserControl:logout(id)
 
-*** get /api/main/portfolio/{id} *UserControl:getPortfolio(id,yourid)
-*** put /api/main/editportfolio *UserControl:editPortfolio(Portfolioinfo)
+*** 	get 	/api/main/portfolio/{id} 	*UserControl:getPortfolio(id,yourid)
+*** 	put 	/api/main/editportfolio 	*UserControl:editPortfolio(Portfolioinfo)
 
-*** get /api/main/chunk/{id} *UserControl:userGetChunk(id)
-*** post /api/main/chunk *UserControl:userCreateChunk(info)
-*** post /api/main/search *UserControl:userSearchChunk(query)
-*** delete /api/main/chunk/{id} *UserControl:userDeleteChunk(id)
+*** 	get 	/api/main/chunk/{id} 		*UserControl:userGetChunk(id)
+*** 	post 	/api/main/chunk 		*UserControl:userCreateChunk(info)
+*** 	post 	/api/main/chunk/search 		*UserControl:userSearchChunk(query)
+*** 	delete 	/api/main/chunk/{id} 		*UserControl:userDeleteChunk(id)
 
-*** get /api/main/subject/{id} *UserControl:userGetSubject(id)
-*** post /api/main/subject *UserControl:userCreateSubject(info)
-*** post /api/main/search *UserControl:userSearchSubject(query)
-*** delete /api/main/subject/{id} *UserControl:userDeleteSubject(id)
-*** get /api/main/subjectsyllabus/{id} *UserControl:userGetSubjectSyllabus(id)
+*** 	get 	/api/main/subject/{id} 		*UserControl:userGetSubject(id)
+*** 	post 	/api/main/subject 		*UserControl:userCreateSubject(info)
+*** 	post 	/api/main/subject/search 		*UserControl:userSearchSubject(query)
+*** 	delete 	/api/main/subject/{id} 		*UserControl:userDeleteSubject(id)
+*** 	get 	/api/main/subjectsyllabus/{id} 	*UserControl:userGetSubjectSyllabus(id)
 
-*** get /api/main/course/{id} *UserControl:userGetCourse(id)
-*** post /api/main/course *UserControl:userCreateCourse(info)
-*** post /api/main/course *UserControl:userSearchCourse(query)
-*** delete /api/main/course/{id} *UserControl:userDeleteCourse(id)
-*** get /api/main/coursesyllabus/{id} *UserControl:userGetCourseSyllabus(id)
+*** 	get 	/api/main/course/{id} 		*UserControl:userGetCourse(id)
+*** 	post 	/api/main/course 		*UserControl:userCreateCourse(info)
+*** 	post 	/api/main/course/search 	*UserControl:userSearchCourse(query)
+*** 	delete 	/api/main/course/{id} 		*UserControl:userDeleteCourse(id)
+*** 	get 	/api/main/coursesyllabus/{id} 	*UserControl:userGetCourseSyllabus(id)
 
-*** post /api/main/career *UserControl:userSearchCareer(query)
-*** get /api/main/careersyllabus/{id} *UserControl:userGetCareerSyllabus(id)
+*** 	post 	/api/main/career 		*UserControl:userCreateCareer(info)
+*** 	post 	/api/main/career/search 	*UserControl:userSearchCareer(query)
+*** 	get 	/api/main/careersyllabus/{id} 	*UserControl:userGetCareerSyllabus(id)
 
-*** get /api/main/search *UserControl:userSearch(query)
+*** 	get 	/api/main/search 		*UserControl:userSearch(query)
 
 :User 
 {
@@ -54,4 +55,116 @@
     "takingcourse": takingcourse
 }
 
-takingcourse=[{'course':courseid, [{'subject' : subjectid, [{'chunk' : [chunkid] }] }] }]
+takingcourse=[{'course':courseid, [{'subject' : subjectorder, [{'chunk' : [chunkorder] }] }] }]
+
+post /api/main/searchuser
+    post-body:
+    {
+        "query": queryString
+    }
+    return [User]
+
+get /api/main/portfolio/{id}
+    return portfolio
+
+put /api/main/editportfolio
+    post-body:
+    {
+        portfolio info
+    }
+
+get /api/main/chunk/{id}
+    return:
+    Chunk
+
+post /api/main/chunk
+    post-body:
+    chunk-info: Chunk #without id
+    
+    return:
+    if success:
+        return 200
+    otherwise:
+        httpCode & { "error": reasonString } 
+
+post /api/main/chunk/search 	
+    post-body:
+    {
+        "tag": [tags],
+        "author": [authorNames],
+        "query": queryString,
+        "start-date": date,
+        "end-date": date
+    }
+
+    return:
+    [Chunk]
+
+delete /api/main/chunk/{id} 
+    if success:
+        return 200
+    otherwise:
+        httpCode & { "error": resonString }	
+
+
+get /api/main/subject/{id} 
+    return:
+    Subject	
+
+post /api/main/subject 
+    post-body:
+    course-info: Subject #without id
+
+    return:
+    if success:
+    return 200
+    otherwise:
+    httpCode & { "error": reasonString }
+		
+post /api/main/subject/search
+    post-body:
+    {
+        "tag": [tags],
+        "author": [authorNames],
+        "query": queryString,
+        "start-date": date,
+        "end-date": date
+    }
+
+    return:
+    array-of-subjects: [Subject] 
+	
+delete /api/main/subject/{id} 
+    if success:
+        return 200
+    otherwise:
+        httpCode & { "error": resonString }
+		
+get /api/main/subjectsyllabus/{id} 
+    return:
+    Subject
+
+----same for course and career----
+
+post /api/main/career/search 
+    post-body:
+    {
+        "tag": [tags],
+        "query": queryString,
+        "start-date": date,
+        "end-date": date
+    }	
+                        
+post /api/main/search 
+    post-body:
+    {
+        "tag": [tags],
+        "author": [authorNames],
+        "query": queryString,
+        "start-date": date,
+        "end-date": date
+    }
+
+    return:
+    [Subject],[Career],[Course],[Chunk]
+

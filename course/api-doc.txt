@@ -1,22 +1,22 @@
-***     get     /api/course/{id}        *CourseControl::getCourseInfo(id)
-***     get     /api/course/author/{id}     *CourseControl::getCourseByAuthor(authorid)
-***     post    /api/course             *CourseControl::createCourse(info)
-***     post    /api/course/search      *CourseControl::searchCourse(query)
-***     put     /api/course         *CourseControl::editCourse(info)
-**  delete  /api/course/{id}        *CourseControl::deleteCourse(id)
+***     get     /api/course/{id}        	*CourseControl::getCourseInfo(id)
+***     get     /api/course/author/{id}     	*CourseControl::getCourseByAuthor(authorid)
+***     post    /api/course             	*CourseControl::createCourse(info)
+***     post    /api/course/search      	*CourseControl::searchCourse(query)
+***     put     /api/course         		*CourseControl::editCourse(info)
+**  	delete  /api/course/{id}        	*CourseControl::deleteCourse(id)
 
-***     get     /api/course/subject/{id}    *CourseControl::getSubjectInfo(id)
+***     get     /api/course/subject/{id}    	*CourseControl::getSubjectInfo(id)
 ***     get     /api/course/subject/author/{id} *CourseControl::getSubjectByAuthor(authorid)
-***     post    /api/course/subject         *CourseControl::createSubject(info)
-***     post    /api/course/subject/search  *CourseControl::searchSubject(query)
-***     put     /api/course/subject     *CourseControl::editSubject(info)
-**  delete  /api/course/subject/{id}    *CourseControl::deleteSubject(id)
+***     post    /api/course/subject         	*CourseControl::createSubject(info)
+***     post    /api/course/subject/search  	*CourseControl::searchSubject(query)
+***     put     /api/course/subject     	*CourseControl::editSubject(info)
+**  	delete  /api/course/subject/{id}    	*CourseControl::deleteSubject(id)
 
-***     get     /api/course/career/{id}     *CourseControl::getCareerInfo(id)
-***     post    /api/course/career      *CourseControl::createCareer(info)
-***     post    /api/course/career/search   *CourseControl::searchCareer(query)
-***     put     /api/course/career      *CourseControl::editCareer(info)
-**  delete  /api/course/career/{id}     *CourseControl::deleteCareer(id)
+***     get     /api/course/career/{id}     	*CourseControl::getCareerInfo(id)
+***     post    /api/course/career      	*CourseControl::createCareer(info)
+***     post    /api/course/career/search   	*CourseControl::searchCareer(query)
+***     put     /api/course/career      	*CourseControl::editCareer(info)
+**  	delete  /api/course/career/{id}     	*CourseControl::deleteCareer(id)
 
 grammar of definitions
 # all post body and return value are JSON format
@@ -79,6 +79,16 @@ post /api/course
     otherwise:
     httpCode & { "error": reasonString }
 
+put /api/course
+    post-body:
+    course-info: Course 
+
+    return:
+    if success:
+    return 200
+    otherwise:
+    httpCode & { "error": reasonString }
+
 post /api/course/search 
     post-body:
     {
@@ -97,3 +107,14 @@ delete /api/course/{id}
         return 200
     otherwise:
         httpCode & { "error": resonString }
+
+
+----same as subject and career-----
+post /api/course/career/search 
+    post-body:
+    {
+        "tag": [tags],
+        "query": queryString,
+        "start-date": date,
+        "end-date": date
+    }

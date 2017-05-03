@@ -1,6 +1,7 @@
 ***     get     /api/chunk/{id}                 *ChunkControl::getChunkInfo(id)
 ***     get     /api/chunk/author/{id}          *ChunkControl::getChunkByAuthor(authorId)
 ***     post    /api/chunk                      *ChunkControl::createChunk(info)
+*** 	put 	/api/chunk     			*ChunkControl::editChunk(info)
 ***     post    /api/chunk/search               *ChunkControl::searchChunk(query)
 **      delete  /api/chunk/{id}                 *ChunkControl::deleteChunk(id)
 
