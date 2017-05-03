@@ -31,24 +31,30 @@ create table if not exists "CareerPath" (
 create table if not exists "ChunkInSubject" (
     chunkID         int,
     subjectID       int,
+    order           int,
     primary key (chunkID, subjectID),
-    foreign key (subjectID) references "Subject"
+    foreign key (subjectID) references "Subject",
+    unique (chunkID, subjectID, order)
 );
 
 create table if not exists "SubjectInCourse" (
     subjectID       int,
     courseID        int,
+    order           int,
     primary key (subjectID, courseID),
     foreign key (subjectID) references "Subject"(subjectID),
-    foreign key (courseID) references "Course"(courseID)
+    foreign key (courseID) references "Course"(courseID),
+    unique (subjectID, courseID, order)
 );
 
 create table if not exists "CourseInCareerPath" (
     courseID        int,
     careerID        int,
+    order           int,
     primary key (courseID, careerID),
     foreign key (courseID) references "Course"(courseID),
-    foreign key (careerID) references "CareerPath"(careerID)
+    foreign key (careerID) references "CareerPath"(careerID),
+    unique(courseID, careerID, order)
 );
 
 -- TODO: table for tags
