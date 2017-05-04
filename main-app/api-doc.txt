@@ -51,7 +51,6 @@
     "lastname": string,
     "birthday": string,
     "education": string,
-    "description": string,
     "createdchunk": [chunkid],
     "createdsubject": [subjectid],
     "createdcourse": [courseid],
