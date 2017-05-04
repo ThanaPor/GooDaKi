@@ -58,7 +58,8 @@
     "takingcourse": takingcourse
 }
 
-takingcourse=[{'course':courseid, [{'subject' : subjectorder, [{'chunk' : [chunkorder] }] }] }]
+#takingcourse=[{'course':courseid, [{'subject' : subjectorder, [{'chunk' : [chunkorder] }] }] }]
+takingcourse=[{'course':courseid, 'subject' : subjectorder, 'chunk' : chunkorder}]
 
 post /api/main/searchuser
     post-body:

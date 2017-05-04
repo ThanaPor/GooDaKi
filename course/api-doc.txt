@@ -13,6 +13,7 @@
 **  	delete  /api/course/subject/{id}    	*CourseControl::deleteSubject(id)
 
 ***     get     /api/course/career/{id}     	*CourseControl::getCareerInfo(id)
+***     get     /api/course/career/author/{id} 	*CourseControl::getCareerByAuthor(authorid)
 ***     post    /api/course/career      	*CourseControl::createCareer(info)
 ***     post    /api/course/career/search   	*CourseControl::searchCareer(query)
 ***     put     /api/course/career      	*CourseControl::editCareer(info)

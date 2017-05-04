@@ -27,3 +27,21 @@ create table if not exists "Has_portfolio" (
     FOREIGN KEY (userID)  REFERENCES "User" (userID),
     FOREIGN KEY (portID) REFERENCES "Portfolio" (portID)
 );
+
+create table if not exists "Taking_course" (
+    portID      INT,
+    courseID    INT,
+    subjectOrder  INT,
+    chunkOrder INT,
+    PRIMARY KEY (portID, courseID),
+    FOREIGN KEY (portID) REFERENCES "Portfolio" (portID)
+);
+
+
+
+create table if not exists "Taken_course" (
+    portID      INT,
+    courseID    INT,
+    PRIMARY KEY (portID, courseID),
+    FOREIGN KEY (portID) REFERENCES "Portfolio" (portID)
+);
